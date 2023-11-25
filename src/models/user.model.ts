@@ -6,7 +6,7 @@ interface IUser {
     email: string,
     age: number,
     password: string,
-    cart_id: string,
+    cart: any,
     role: 'user' | 'admin'
 }
 
@@ -16,7 +16,7 @@ const UserSchema = new Schema<IUser>({
     email: { type: String, unique: true },
     age: { type: Number },
     password: { type: String, },
-    cart_id: { type: String, },
+    cart: { type: Schema.Types.ObjectId, ref: "Cart" },
     role: { type: String, enum: ['user', 'admin'] }
 });
 
