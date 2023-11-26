@@ -9,4 +9,7 @@
   "exclude": [
     "node_modules"
   ],
+  "files": [
+    "src/config/types.d.ts"
+  ]
 }

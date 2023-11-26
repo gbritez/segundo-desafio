@@ -11,11 +11,11 @@ interface IUser {
 }
 
 const UserSchema = new Schema<IUser>({
-    first_name: { type: String, },
-    last_name: { type: String, },
-    email: { type: String, unique: true },
-    age: { type: Number },
-    password: { type: String, },
+    first_name: { type: String, required: true },
+    last_name: { type: String, required: true },
+    email: { type: String, unique: true, required: true },
+    age: { type: Number, required: true },
+    password: { type: String, required: true },
     cart: { type: Schema.Types.ObjectId, ref: "Cart" },
     role: { type: String, enum: ['user', 'admin'] }
 });

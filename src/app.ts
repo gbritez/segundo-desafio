@@ -1,16 +1,17 @@
 import express, { Express, Request, Response, Application } from 'express';
 import dotenv from 'dotenv';
+dotenv.config();
 import cors from 'cors';
 import MongoStore from 'connect-mongo'
 import loginRouter from './routes/login.route';
 import viewsRouter from './routes/views.route';
-import './config/passport.config'
 import session from 'express-session'
 import Handlebars from 'express-handlebars'
 import cookieParser from "cookie-parser"
 import passport from "passport"
+import './config/passport.config'
+import './config/db.config'
 import { engine } from 'express-handlebars'
-dotenv.config();
 
 const app: Application = express();
 const port = process.env.PORT || 8000;
@@ -19,7 +20,7 @@ const port = process.env.PORT || 8000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 app.use(cors())
-app.use(cookieParser())
+app.use(cookieParser("SecretCookie"))
 app.use(
     session({
         store: new MongoStore({ mongoUrl: process.env.DB_URI }),

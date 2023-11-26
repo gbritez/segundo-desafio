@@ -4,9 +4,19 @@ export class ProductsViewController {
     constructor() { }
 
     GetAll = async (req: Request, res: Response) => {
+        const { limit = 10, sort, page = 1, ...query } = req.params as { limit?: number; sort?: string; page?: number };
+        let sortOptions = {}
+        if (sort) {
+            if (sort === 'asc') {
+                sortOptions = { price: 1 };
+            } else if (sort === 'desc') {
+                sortOptions = { price: -1 };
+            }
+        }
         try {
-            const { limit, order, query } = req.params
-            const products = Product.paginate()
+            const products = await Product.paginate(query, { page, limit, sort: sortOptions, lean: true })
+            console.log(products)
+            res.render('home', { products })
         } catch (error) {
 
         }
